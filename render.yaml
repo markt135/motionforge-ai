@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: pixmo-video-platform
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: PIXMO_API_KEY
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: APP_URL
+        sync: false
+    disk:
+      name: pixmo-data
+      mountPath: /var/data
+      sizeGB: 1
