@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MotionForge — AI Video Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#090d18;--panel:#111a2c;--panel2:#17233a;--line:#273753;--muted:#9aaac4;--text:#f4f7ff;--accent:#8d7bff;--cyan:#5bd6d0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#30275f 0,transparent 42%),var(--bg);color:var(--text);font:15px Inter,system-ui,Arial,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.shell{max-width:1180px;margin:auto;padding:24px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0 28px}.brand{font-size:21px;font-weight:850;letter-spacing:-.7px;display:flex;align-items:center;gap:9px}.brand img{width:34px;height:34px}.brand span{color:var(--cyan)}
+.landing{padding:26px 0 20px}.landing-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:52px 0}.landing h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-.06em;margin:14px 0 18px}.landing p{color:var(--muted);line-height:1.75;max-width:620px}.hero-art{min-height:280px;border:1px solid #39476b;border-radius:26px;background:radial-gradient(circle at 70% 30%,#7764ff66,transparent 42%),linear-gradient(145deg,#182641,#0b1222);display:grid;place-items:center;position:relative;overflow:hidden}.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #8b7cff66;border-radius:50%;width:250px;height:250px}.hero-art:after{width:180px;height:180px}.playmark{z-index:1;width:90px;height:90px;border-radius:28px;background:linear-gradient(140deg,#8877ff,#54d8d0);display:grid;place-items:center;color:#101526;font-size:38px;box-shadow:0 18px 70px #7867ff66}.feature-grid,.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 44px}.feature,.price{background:#111a2c;border:1px solid var(--line);border-radius:17px;padding:20px}.feature h3,.price h3{margin:8px 0}.price strong{font-size:30px}.price .hint{min-height:42px}.landing-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.section-title{font-size:28px;letter-spacing:-.04em;margin:36px 0 8px}.landing .btn{display:inline-block;text-decoration:none}.landing .outline{background:#202d46;border:1px solid #40516e}.navlinks{display:flex;align-items:center;gap:16px}.navlinks a{color:#cbd6eb;text-decoration:none;font-size:13px}.navlinks a:hover{color:white}.navright{display:flex;align-items:center;gap:12px}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 13px;color:#dbe4f6;font-size:13px}
+.hero{padding:34px 0 28px}.kicker{font-size:11px;color:var(--cyan);letter-spacing:.2em;font-weight:800;text-transform:uppercase}.hero h1{font-size:clamp(36px,6vw,64px);line-height:1.02;letter-spacing:-.055em;margin:14px 0}.hero p{color:var(--muted);max-width:640px;line-height:1.7;margin:0}
+.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:18px;align-items:start}.card{background:linear-gradient(160deg,#16223a,#10182a);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 18px 60px #0003}.card h2{font-size:18px;margin:0 0 18px}.field{margin:15px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#dce5f7}
+textarea,input,select{width:100%;border:1px solid #344563;border-radius:11px;background:#0b1323;color:var(--text);padding:12px 13px;outline:none}textarea{min-height:145px;resize:vertical;line-height:1.55}textarea:focus,input:focus,select:focus{border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.btn{border:0;border-radius:11px;padding:13px 17px;color:#fff;font-weight:800;background:linear-gradient(110deg,#7867ff,#a45fff)}.btn.secondary{background:#23324d;border:1px solid #40516e}.btn.small{padding:9px 12px;font-size:13px}.btn:disabled{opacity:.55;cursor:wait}.wide{width:100%}.muted{color:var(--muted)}.hint{font-size:12px;color:var(--muted);line-height:1.6}.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.check input{width:16px;height:16px;accent-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#0c1527;border:1px solid var(--line);padding:14px;border-radius:13px}.stat b{display:block;font-size:23px}.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 14px}.tab{border:1px solid var(--line);background:#111a2c;color:#c7d2e8;padding:9px 14px;border-radius:999px}.tab.active{background:#322c61;border-color:#7767e9;color:white}
+.status{font-size:13px;line-height:1.5;color:var(--muted);min-height:22px;margin-top:13px}.video-card{background:#0b1323;border:1px solid var(--line);border-radius:14px;padding:13px;margin-top:12px}.video-card video{width:100%;max-height:360px;border-radius:10px;background:#03060c}.job{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.job:last-child{border:0}.job p{margin:5px 0;color:var(--muted);font-size:12px}.tag{font-size:11px;padding:5px 8px;border-radius:99px;background:#273650;color:#d6e0f4;height:max-content}.tag.done{background:#174638;color:#a8f0d4}.tag.failed{background:#512c37;color:#ffc0c6}
+.authwrap{max-width:440px;margin:7vh auto}.authwrap .card{padding:28px}.authwrap h1{font-size:30px;margin:0 0 8px}.authswitch{text-align:center;margin-top:16px;color:var(--muted);font-size:13px}.link{color:#c6bcff;text-decoration:none;cursor:pointer}.notice{border:1px solid #4d426f;background:#211d3d;color:#d9d1ff;padding:11px;border-radius:11px;font-size:13px;margin:12px 0}
+.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:11px 8px}th{color:var(--muted);font-weight:650}
+footer{color:#72819b;font-size:12px;padding:35px 0;text-align:center}
+@media(max-width:850px){.layout{grid-template-columns:1fr}}@media(max-width:560px){.shell{padding:15px}.grid{grid-template-columns:1fr}.hero{padding-top:16px}.card{padding:17px}.navright .pill{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav><div class="brand"><img src="/logo.svg" alt="MotionForge logo">MOTION<span>FORGE</span></div><div class="navright"><div class="navlinks" id="publicNav"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div><span class="pill hidden" id="creditPill">Credits: —</span><span class="pill" id="emailPill">Visitor</span><button class="btn secondary small" id="navSignIn">Sign in</button><button class="btn secondary small hidden" id="logoutBtn">Sign out</button></div></nav>
+<section id="landingView" class="landing">
+ <div class="landing-hero"><div><div class="kicker">Your ideas. In motion.</div><h1>Turn a simple prompt into a stunning video.</h1><p>MotionForge is an AI video studio powered by Pixmo. Describe the scene you imagine, choose a format and duration, and create a video for your next story, campaign or project.</p><div class="landing-actions"><button class="btn" id="heroStart">Start creating free</button><a class="btn outline" href="#how">See how it works</a></div><p class="hint">New accounts receive starter credits. Video generation uses credits; actual cost depends on model and duration.</p></div><div class="hero-art" aria-label="Abstract video creation artwork"><div class="playmark">▶</div></div></div>
+ <div id="features"><div class="kicker">Made for creators</div><h2 class="section-title">Everything you need to get moving</h2><div class="feature-grid"><article class="feature"><div class="kicker">01 / Generate</div><h3>Prompt-to-video</h3><p>Describe a scene in natural language and send it to Pixmo for AI video generation.</p></article><article class="feature"><div class="kicker">02 / Customize</div><h3>Choose your format</h3><p>Create landscape, portrait, square or cinematic outputs with supported duration options.</p></article><article class="feature"><div class="kicker">03 / Manage</div><h3>Your own video library</h3><p>Track jobs, view completed videos, review credit activity and top up your balance.</p></article></div></div>
+ <div id="how"><div class="kicker">Simple workflow</div><h2 class="section-title">From idea to video in three steps</h2><div class="feature-grid"><article class="feature"><h3>1. Create an account</h3><p>Register with your email and sign in to your private workspace.</p></article><article class="feature"><h3>2. Write your prompt</h3><p>Choose a model, duration, aspect ratio and whether to request audio.</p></article><article class="feature"><h3>3. Generate and share</h3><p>Follow progress in your dashboard and open your finished video.</p></article></div></div>
+ <div id="pricing"><div class="kicker">Transparent sample pricing</div><h2 class="section-title">Choose a credit top-up</h2><p>These are editable launch examples. Confirm your Pixmo costs and business margin before publishing prices.</p><div class="price-grid"><article class="price"><div class="kicker">Starter</div><h3>Mini</h3><strong>KES 100</strong><p>100 platform credits</p><button class="btn secondary wide priceStart">Get started</button></article><article class="price"><div class="kicker">For regular creators</div><h3>Creator</h3><strong>KES 300</strong><p>330 platform credits</p><button class="btn wide priceStart">Get started</button></article><article class="price"><div class="kicker">For frequent projects</div><h3>Studio</h3><strong>KES 700</strong><p>800 platform credits</p><button class="btn secondary wide priceStart">Get started</button></article></div></div>
+ <p class="hint">MotionForge is an independent platform concept. Pixmo provides the underlying generation API. Generated outputs, availability and costs are subject to provider terms.</p>
+</section>
+
+<section id="authView" class="authwrap hidden">
+  <div class="card">
+    <div class="kicker">AI video creation platform</div>
+    <h1 id="authTitle">Create your account</h1>
+    <p class="muted" id="authSub">Turn your ideas into videos with AI.</p>
+    <div class="notice">New accounts receive <b id="signupCreditText">25</b> starter credits. Video generation uses credits.</div>
+    <form id="authForm">
+      <div class="field"><label>Email address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+      <div class="field"><label>Password</label><input id="password" type="password" minlength="10" autocomplete="new-password" required placeholder="At least 10 characters"></div>
+      <button class="btn wide" id="authSubmit">Create account</button>
+    </form>
+    <div class="authswitch"><span id="authSwitchText">Already registered?</span> <a class="link" id="authSwitch">Sign in</a></div>
+    <p class="status" id="authStatus"></p>
+  </div>
+</section>
+
+<section id="appView" class="hidden">
+  <div class="hero"><div class="kicker">Your creative workspace</div><h1>Make something<br>remarkable.</h1><p>Describe a scene, choose your video format and let Pixmo turn your idea into motion. Your creations are saved to your account.</p></div>
+  <div class="layout">
+    <section class="card">
+      <h2>Create a new video</h2>
+      <form id="videoForm">
+        <div class="field"><label for="prompt">What should happen in your video?</label><textarea id="prompt" maxlength="5000" required placeholder="A cinematic shot of a stylish electric car driving along a coastal road at golden hour, smooth tracking camera, realistic lighting, premium commercial style..."></textarea></div>
+        <div class="grid">
+          <div class="field"><label>Model</label><select id="model"><option value="sd2-fast">Pixmo Fast · 5 credits/sec</option><option value="sd2">Pixmo Pro · 6 credits/sec</option></select></div>
+          <div class="field"><label>Duration</label><select id="duration"><option>5s</option><option>4s</option><option>6s</option><option>7s</option><option>8s</option><option>9s</option><option>10s</option><option>11s</option><option>12s</option><option>13s</option><option>14s</option><option>15s</option></select></div>
+          <div class="field"><label>Format</label><select id="resolution"><option value="1280x720">Landscape 16:9</option><option value="720x1280">Portrait 9:16</option><option value="720x720">Square 1:1</option><option value="720x960">Portrait 3:4</option><option value="960x720">Landscape 4:3</option><option value="1280x540">Cinematic 21:9</option></select></div>
+        </div>
+        <label class="check"><input id="audio" type="checkbox" checked> Generate synchronized audio (when supported)</label>
+        <p class="hint" id="costHint">Estimated cost: 25 credits for this 5-second video.</p>
+        <button class="btn wide" id="generateBtn">Generate video</button>
+      </form>
+      <div class="status" id="generationStatus" aria-live="polite"></div>
+      <div id="latestResult"></div>
+    </section>
+    <aside class="card">
+      <h2>Your account</h2>
+      <div class="stats"><div class="stat"><b id="balance">—</b><span>Available credits</span></div><div class="stat"><b id="jobCount">—</b><span>Your videos</span></div></div>
+      <div class="field"><label>How credits work</label><p class="hint">Pixmo generation costs are charged in credits. Fast uses 5 credits per second and Pro uses 6 credits per second at the standard 720p tier. Failed jobs are refunded automatically by this platform.</p></div>
+      <div class="field"><label>Buy more credits</label><div id="topupArea" class="hint">Loading payment options…</div></div>
+      <div id="adminShortcut" class="hidden"><button class="btn secondary wide" id="openAdmin">Open admin dashboard</button></div>
+    </aside>
+  </div>
+  <div class="tabs"><button class="tab active" data-tab="videos">My videos</button><button class="tab" data-tab="credits">Credit history</button><button class="tab hidden" id="adminTab" data-tab="admin">Admin</button></div>
+  <section class="card" id="videosPanel"><h2>Your video library</h2><div id="jobsList" class="muted">Loading videos…</div></section>
+  <section class="card hidden" id="creditsPanel"><h2>Credit activity</h2><div id="ledgerList" class="muted">Loading credit activity…</div></section>
+  <section class="card hidden" id="adminPanel"><h2>Platform administration</h2><div id="adminTotals" class="stats"></div><h3>Grant credits</h3><form id="grantForm" class="grid"><div class="field"><label>User ID</label><input id="grantUser" type="number" min="1" required></div><div class="field"><label>Credits to add</label><input id="grantAmount" type="number" min="1" max="100000" required></div><div class="field"><label>Reason</label><input id="grantReason" value="Credit package purchase" maxlength="160"></div><button class="btn">Add credits</button></form><p class="status" id="adminStatus"></p><h3>Users</h3><div class="tablewrap" id="adminUsers"></div><h3>Recent generation jobs</h3><div class="tablewrap" id="adminJobs"></div><h3>Recent payments</h3><div class="tablewrap" id="adminPayments"></div></section>
+</section>
+<footer>MotionForge AI · Video generation powered by Pixmo. Please use the service responsibly.</footer>
+</div>
+<script>
+let isLogin=false, me=null, refreshTimer=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function openAuth(login=false){$("landingView").classList.add("hidden");$("authView").classList.remove("hidden");$("publicNav").classList.add("hidden");$("navSignIn").classList.add("hidden");showAuth(login)}
+$("heroStart").onclick=()=>openAuth(false);$("navSignIn").onclick=()=>openAuth(true);document.querySelectorAll(".priceStart").forEach(b=>b.onclick=()=>openAuth(false));
+
+async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{"Content-Type":"application/json",...(opts.headers||{})}});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Request failed");return d}
+function showAuth(login){isLogin=login;$("authTitle").textContent=login?"Welcome back":"Create your account";$("authSub").textContent=login?"Sign in to continue creating.":"Turn your ideas into videos with AI."; $("authSubmit").textContent=login?"Sign in":"Create account";$("authSwitchText").textContent=login?"New to MotionForge?":"Already registered?";$("authSwitch").textContent=login?"Create an account":"Sign in";$("password").autocomplete=login?"current-password":"new-password";$("password").minLength=login?1:10;$("authStatus").textContent="";}
+$("authSwitch").onclick=()=>showAuth(!isLogin);
+$("authForm").onsubmit=async e=>{e.preventDefault();$("authSubmit").disabled=true;$("authStatus").textContent="Please wait…";try{const d=await api(isLogin?"/api/login":"/api/register",{method:"POST",body:JSON.stringify({email:$("email").value,password:$("password").value})});me=d.user;enterApp()}catch(err){$("authStatus").textContent=err.message}finally{$("authSubmit").disabled=false}};
+async function boot(){try{const d=await api("/api/me");if(d.user){me=d.user;enterApp()}else{$("landingView").classList.remove("hidden");$("authView").classList.add("hidden")}}catch{$("landingView").classList.remove("hidden");$("authView").classList.add("hidden")}}
+function enterApp(){$("landingView").classList.add("hidden");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");$("publicNav").classList.add("hidden");$("navSignIn").classList.add("hidden");$("creditPill").classList.remove("hidden");$("logoutBtn").classList.remove("hidden");$("emailPill").textContent=me.email;updateMe();loadJobs();loadLedger();if(me.role==="admin"){$("adminTab").classList.remove("hidden");$("adminShortcut").classList.remove("hidden")}if(refreshTimer)clearInterval(refreshTimer);refreshTimer=setInterval(loadJobs,12000)}
+function updateMe(){if(!me)return;$("creditPill").textContent=`Credits: ${me.credits}`;$("balance").textContent=me.credits}
+async function updateMeFromServer(){const d=await api("/api/me");me=d.user;updateMe()}
+$("logoutBtn").onclick=async()=>{try{await api("/api/logout",{method:"POST"})}catch{}location.reload()};
+function estimated(){const sec=Number.parseInt($("duration").value,10),rate=$("model").value==="sd2-fast"?5:6;return sec*rate}
+function costHint(){$("costHint").textContent=`Estimated cost: ${estimated()} credits for this ${$("duration").value} video.`}
+["model","duration"].forEach(id=>$(id).onchange=costHint);costHint();
+$("videoForm").onsubmit=async e=>{e.preventDefault();$("generateBtn").disabled=true;$("generationStatus").textContent="Submitting your video to Pixmo…";$("latestResult").innerHTML="";try{const d=await api("/api/videos",{method:"POST",body:JSON.stringify({prompt:$("prompt").value,model:$("model").value,duration:$("duration").value,resolution:$("resolution").value,generateAudio:$("audio").checked})});$("generationStatus").textContent=`Your job #${d.job.id} has started. This page will check for the result.`;me=d.user;updateMe();await loadJobs();await watchJob(d.job.id)}catch(err){$("generationStatus").textContent=err.message;try{await updateMeFromServer()}catch{}}finally{$("generateBtn").disabled=false}};
+async function watchJob(id){for(let i=0;i<120;i++){await new Promise(r=>setTimeout(r,5000));try{const d=await api(`/api/videos/${id}`);const j=d.job;me=d.user;updateMe();$("generationStatus").textContent=`Video #${id}: ${j.status.toLowerCase()}…`;if(j.status==="COMPLETED"){if(j.videoUrl)$("latestResult").innerHTML=`<div class="video-card"><b>Your video is ready</b><video controls playsinline src="${esc(j.videoUrl)}"></video><p><a class="link" href="${esc(j.videoUrl)}" target="_blank" rel="noopener">Open / download video</a></p></div>`;else $("generationStatus").textContent="Pixmo completed the job but returned no video URL.";await loadJobs();await loadLedger();return}if(j.status==="FAILED"){$("generationStatus").textContent=`Generation failed. Your ${j.creditsCharged} credits have been returned. ${j.error||""}`;await loadJobs();await loadLedger();return}}catch(err){$("generationStatus").textContent=err.message;return}}$("generationStatus").textContent=`Job #${id} is taking longer than expected. It remains in your library; reload later to check again.`}
+async function loadJobs(){try{const d=await api("/api/jobs");$("jobCount").textContent=d.jobs.length;$("jobsList").innerHTML=d.jobs.length?d.jobs.map(j=>`<div class="job"><div><b>#${j.id} · ${esc(j.prompt.slice(0,100))}${j.prompt.length>100?"…":""}</b><p>${esc(j.model)} · ${esc(j.duration)} · ${j.credits_charged} credits · ${esc(j.created_at)}</p>${j.video_url?`<a class="link" href="${esc(j.video_url)}" target="_blank" rel="noopener">Open video</a>`:""}${j.error_message?`<p>${esc(j.error_message)}</p>`:""}</div><span class="tag ${j.status==="COMPLETED"?"done":j.status==="FAILED"?"failed":""}">${esc(j.status)}</span></div>`).join(""):"No videos yet. Create your first one above."}catch(err){$("jobsList").textContent=err.message}}
+async function loadLedger(){try{const d=await api("/api/ledger");$("ledgerList").innerHTML=d.entries.length?d.entries.map(x=>`<div class="job"><div><b>${esc(x.reason)}</b><p>${esc(x.created_at)}</p></div><b>${x.amount>0?"+":""}${x.amount}</b></div>`).join(""):"No credit activity yet."}catch(err){$("ledgerList").textContent=err.message}}
+function activateTab(name){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===name));["videos","credits","admin"].forEach(n=>$(n+"Panel").classList.toggle("hidden",n!==name));if(name==="admin")loadAdmin()}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>activateTab(t.dataset.tab));$("openAdmin").onclick=()=>activateTab("admin");
+async function loadAdmin(){try{const d=await api("/api/admin/overview");$("adminTotals").innerHTML=`<div class="stat"><b>${d.totals.users}</b><span>Accounts</span></div><div class="stat"><b>${d.totals.jobs}</b><span>Generation jobs</span></div><div class="stat"><b>${d.totals.creditsOutstanding}</b><span>Credits outstanding</span></div><div class="stat"><b>KES ${Number(d.totals.successfulPaymentsKes||0).toLocaleString()}</b><span>Verified payments</span></div><div class="stat"><b>${d.totals.pendingPayments}</b><span>Pending / review</span></div>`;$("adminUsers").innerHTML=`<table><thead><tr><th>ID</th><th>Email</th><th>Role</th><th>Credits</th></tr></thead><tbody>${d.users.map(u=>`<tr><td>${u.id}</td><td>${esc(u.email)}</td><td>${esc(u.role)}</td><td>${u.credits}</td></tr>`).join("")}</tbody></table>`;$("adminJobs").innerHTML=`<table><thead><tr><th>Job</th><th>User</th><th>Status</th><th>Credits</th></tr></thead><tbody>${d.jobs.map(j=>`<tr><td>#${j.id}</td><td>${esc(j.email)}</td><td>${esc(j.status)}</td><td>${j.credits_charged}</td></tr>`).join("")}</tbody></table>`;$("adminPayments").innerHTML=`<table><thead><tr><th>Payment</th><th>User</th><th>Amount</th><th>Credits</th><th>Status</th><th>Receipt</th></tr></thead><tbody>${d.payments.map(p=>`<tr><td>#${p.id}</td><td>${esc(p.email)}</td><td>KES ${p.amount_kes}</td><td>${p.credits}</td><td>${esc(p.status)}</td><td>${esc(p.receipt_number||"—")}</td></tr>`).join("")}</tbody></table>`}catch(e){$("adminStatus").textContent=e.message}}
+$("grantForm").onsubmit=async e=>{e.preventDefault();$("adminStatus").textContent="Updating credits…";try{await api("/api/admin/credits",{method:"POST",body:JSON.stringify({userId:$("grantUser").value,amount:$("grantAmount").value,reason:$("grantReason").value})});$("adminStatus").textContent="Credits added successfully.";loadAdmin();loadJobs()}catch(err){$("adminStatus").textContent=err.message}};
+
+async function loadPaymentOptions(){
+  try{
+    const d=await api("/api/payments/config");
+    if(!d.mpesaEnabled){$("topupArea").textContent="M-Pesa top-ups are not configured yet. Contact the administrator.";return}
+    $("topupArea").innerHTML=d.packages.map(p=>`<div class="job"><div><b>${esc(p.name)} package</b><p>KES ${p.amountKes.toLocaleString()} · ${p.credits.toLocaleString()} credits</p></div><button class="btn small" data-package="${esc(p.id)}">Buy</button></div>`).join("");
+    $("topupArea").querySelectorAll("[data-package]").forEach(b=>b.onclick=()=>buyCredits(b.dataset.package));
+  }catch(e){$("topupArea").textContent=e.message}
+}
+async function buyCredits(packageId){
+  const phone=window.prompt("Enter Kenyan M-Pesa phone number (e.g. 0712345678):");
+  if(!phone)return;
+  $("topupArea").querySelectorAll("button").forEach(b=>b.disabled=true);
+  try{
+    const d=await api("/api/payments/mpesa/initiate",{method:"POST",body:JSON.stringify({packageId,phone})});
+    $("topupArea").insertAdjacentHTML("afterbegin",`<div class="notice">M-Pesa prompt sent. Enter your PIN. Payment reference #${d.paymentId}.</div>`);
+    for(let i=0;i<36;i++){
+      await new Promise(r=>setTimeout(r,5000));
+      const p=await api(`/api/payments/${d.paymentId}`);
+      if(p.payment.status==="PAID"){me=p.user;updateMe();$("topupArea").insertAdjacentHTML("afterbegin",`<div class="notice">Payment received. ${p.payment.credits} credits added.</div>`);await loadLedger();return}
+      if(["FAILED","REVIEW"].includes(p.payment.status)){ $("topupArea").insertAdjacentHTML("afterbegin",`<div class="notice">${p.payment.status==="FAILED"?"Payment was not completed.":"Payment needs manual verification."} ${esc(p.payment.result_description||"")}</div>`);return}
+    }
+    $("topupArea").insertAdjacentHTML("afterbegin",'<div class="notice">Payment is still pending. Check again shortly.</div>');
+  }catch(e){$("topupArea").insertAdjacentHTML("afterbegin",`<div class="notice">${esc(e.message)}</div>`)}
+  finally{$("topupArea").querySelectorAll("button").forEach(b=>b.disabled=false)}
+}
+
+boot();
+loadPaymentOptions();
+</script>
+</body></html>
